@@ -1,5 +1,5 @@
 // 오프라인 캐시 서비스 워커 — 파일을 고치면 VERSION을 올려야 폰에 새 버전이 반영됨
-const VERSION = 'v1';
+const VERSION = 'v2';
 const FILES = ['./', 'index.html', 'data.js', 'app.js', 'manifest.json', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
 
 self.addEventListener('install', e => {
