@@ -100,10 +100,12 @@ function renderBook() {
 }
 
 // ----- 시트 공통 -----
-function openSheet(el) { $('#dim').classList.add('on'); el.classList.add('on'); }
+// 시트가 열려 있는 동안 뒤 화면은 스크롤 안 되게 (아이폰에서 시트 안 스크롤이 뒤로 새는 것 방지)
+function openSheet(el) { $('#dim').classList.add('on'); el.classList.add('on'); document.documentElement.classList.add('lock'); }
 function closeSheets() {
   document.querySelectorAll('.sheet.on').forEach(s => s.classList.remove('on'));
   $('#dim').classList.remove('on');
+  document.documentElement.classList.remove('lock');
   document.activeElement?.blur();
 }
 function persist(ok) { if (ok === false) toast('저장에 실패했어요 (저장 공간 부족?)'); }
@@ -203,7 +205,7 @@ function viewNote(id) {
     ${n.text ? `<div class="view-text">${esc(n.text)}</div>` : ''}
     ${n.quote ? `<div class="field-label">기억하고 싶은 문장</div><div class="view-quote">${esc(n.quote)}</div>` : ''}`;
   openSheet($('#viewSheet'));
-  $('#viewSheet').scrollTop = 0;
+  $('#viewBody').scrollTop = 0;
 }
 
 function openNote(id) {
