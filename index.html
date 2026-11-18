@@ -93,6 +93,16 @@
   .note .quote{font-size:13px;color:var(--sub);margin-top:8px;padding-left:10px;border-left:3px solid var(--line);white-space:pre-wrap;
     display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 
+  /* 독후감 전체 보기 */
+  #viewSheet{min-height:60vh}
+  .view-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:6px}
+  .view-head h3{margin:4px 0}
+  .view-meta{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--sub)}
+  .view-meta .final{font-size:12px;font-weight:700;color:#3a2c00;background:var(--gold);padding:2px 8px;border-radius:999px}
+  #viewSheet .range{font-size:13px;color:var(--accent);margin-top:6px;font-weight:600}
+  .view-text{font-size:16px;line-height:1.8;margin-top:16px;white-space:pre-wrap;word-break:keep-all}
+  .view-quote{font-size:15px;line-height:1.7;color:var(--sub);padding-left:12px;border-left:3px solid var(--line);white-space:pre-wrap}
+
   .fab{position:fixed;right:max(20px,calc(50% - 240px));bottom:calc(env(safe-area-inset-bottom) + 24px);
     width:58px;height:58px;border-radius:50%;background:var(--accent);color:#fff;font-size:30px;
     box-shadow:0 6px 20px rgba(0,0,0,.18);display:grid;place-items:center;z-index:4}
@@ -200,6 +210,13 @@
       <button class="danger" id="bookDelBtn">삭제</button>
       <button class="primary" id="bookSaveBtn">책장에 꽂기</button>
     </div>
+  </div>
+
+  <!-- 독후감 전체 보기 -->
+  <div class="sheet" id="viewSheet">
+    <div class="grab"></div>
+    <div class="view-head"><h3 id="viewTitle"></h3><button class="chip" id="viewEditBtn">✏️ 수정하기</button></div>
+    <div id="viewBody"></div>
   </div>
 
   <!-- 독후감 쓰기 -->

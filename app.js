@@ -190,6 +190,22 @@ function deleteBook() {
 }
 
 // ----- 독후감 쓰기 -----
+// 독후감 전체 보기 (오른쪽 위 "수정하기" → 고치기 화면)
+let viewing = null;
+function viewNote(id) {
+  const n = store.s.notes.find(x => x.id === id); if (!n) return;
+  viewing = id;
+  const i = store.notesOf(current).findIndex(x => x.id === id) + 1;
+  $('#viewTitle').textContent = `${i}회차 독후감`;
+  $('#viewBody').innerHTML = `
+    <div class="view-meta num">${dot(n.date)}${n.minutes ? ` · ${fmtMin(n.minutes)}` : ''}${n.final ? ' <span class="final">🏁 마지막</span>' : ''}</div>
+    ${n.range ? `<div class="range">${esc(n.range)}</div>` : ''}
+    ${n.text ? `<div class="view-text">${esc(n.text)}</div>` : ''}
+    ${n.quote ? `<div class="field-label">기억하고 싶은 문장</div><div class="view-quote">${esc(n.quote)}</div>` : ''}`;
+  openSheet($('#viewSheet'));
+  $('#viewSheet').scrollTop = 0;
+}
+
 function openNote(id) {
   editingNote = id || null;
   const n = id ? store.s.notes.find(x => x.id === id) : null;
@@ -284,7 +300,8 @@ function importData(file) {
 
 // ----- 이벤트 -----
 $('#shelves').onclick = e => { const b = e.target.closest('[data-book]'); if (b) { current = b.dataset.book; render(); scrollTo(0, 0); } };
-$('#notes').onclick = e => { const n = e.target.closest('[data-note]'); if (n) openNote(n.dataset.note); };
+$('#notes').onclick = e => { const n = e.target.closest('[data-note]'); if (n) viewNote(n.dataset.note); };
+$('#viewEditBtn').onclick = () => { const id = viewing; closeSheets(); setTimeout(() => openNote(id), 200); };
 $('#backBtn').onclick = () => { current = null; render(); };
 $('#addBtn').onclick = () => current ? openNote() : openBookForm();
 $('#dim').onclick = closeSheets;
